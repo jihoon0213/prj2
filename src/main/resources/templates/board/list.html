@@ -8,15 +8,19 @@
             /*border-collapse: collapse;*/
             border: 1px solid black;
         }
+
+        .active {
+            background-color: yellow;
+        }
     </style>
 </head>
 <body>
-<h2>목록</h2>
+<h1>목록</h1>
 
 <table>
     <thead>
     <tr>
-        <th>No.</th>
+        <th>*</th>
         <th>제목</th>
         <th>작성자</th>
         <th>작성일시</th>
@@ -25,11 +29,25 @@
     <tbody>
     <tr th:each="board : ${boardList}">
         <td th:text="${board.id}"></td>
-        <td th:text="${board.title}"></td>
+        <td>
+            <a th:href="@{/board/view(id=${board.id}, page=${currentPage})}" th:text="${board.title}"></a>
+        </td>
         <td th:text="${board.writer}"></td>
         <td th:text="${board.createdAt}"></td>
     </tr>
     </tbody>
 </table>
+<div>
+    <span th:if="${leftPageNumber>10}">
+        <a th:href="@{/board/list(page=${leftPageNumber - 10})}"><<</a>
+    </span>
+    <span th:each="pageNumber : ${#numbers.sequence(leftPageNumber,rightPageNumber)}">
+        <a th:classappend="${currentPage == pageNumber ? 'active' : ''}" th:href="@{/board/list(page=${pageNumber})}"
+           th:text="${pageNumber}"></a>
+    </span>
+    <span th:if="${rightPageNumber +1 <= totalPages}">
+        <a th:href="@{/board/list(page=${rightPageNumber+1})}">>></a>
+    </span>
+</div>
 </body>
 </html>

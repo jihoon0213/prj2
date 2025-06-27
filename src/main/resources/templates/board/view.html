@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+<h1>
+    <span th:text="${board.id}"></span>
+    번 게시물
+</h1>
+<div>
+    <label for="inputTitle">제목</label>
+    <input type="text" id="inputTitle" th:value="${board.title}" readonly>
+</div>
+<div>
+    <label for="textareaContent">본문</label>
+    <textarea type="text" id="textareaContent" th:text="${board.content}" readonly></textarea>
+</div>
+<div>
+    <label for="inputWriter">작성자</label>
+    <input type="text" id="inputWriter" th:value="${board.writer}" readonly>
+</div>
+<div>
+    <label for="inputCreatedAt">작성일시</label>
+    <input type="datetime-local" id="inputCreatedAt" th:value="${board.createdAt}" readonly>
+</div>
+<div>
+    <a th:href="@{/board/list(page=${page})}">목록</a>
+</div>
+<div>
+    <button>수정</button>
+    <button form="removeForm">삭제</button>
+</div>
+
+<div class="d-none">
+    <form id="removeForm" th:action="@{/board/remove}" method="post">
+        <input type="text" name="id" th:value="${board.id}">
+    </form>
+</div>
+
+</body>
+</html>

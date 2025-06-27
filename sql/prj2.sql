@@ -17,3 +17,11 @@ DELETE
 FROM board
 WHERE id = 2;
 
+INSERT INTO board
+    (title, content, writer)
+SELECT title, content, writer
+FROM board;
+
+SELECT COUNT(*)
+FROM board;
+
